@@ -8,12 +8,15 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5;
     public float horzDirection; //used to check which direction player is facing
     public bool isGrounded;
+    public Animator anim;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        //get references from player game object
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,9 +28,9 @@ public class PlayerMovement : MonoBehaviour
         //facing left and right logic
         if (horzDirection >= 0.01f)
         {
-            transform.eulerAngles = new Vector3 (0,0,0); //facing right
+            transform.eulerAngles = new Vector3(0, 0, 0); //facing right
         }
-        if(horzDirection <= -0.01f)
+        if (horzDirection <= -0.01f)
         {
             transform.eulerAngles = new Vector3(0, -180, 0); //facing left
         }
@@ -39,7 +42,11 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
 
-    }
+        //Anmations
+        anim.SetBool("isRunning", horzDirection != 0); //ie there is horizontal input therefor isrunning
+        
+
+    }//end update
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
