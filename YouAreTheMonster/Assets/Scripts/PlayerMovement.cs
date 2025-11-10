@@ -42,9 +42,17 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
 
-        //Anmations
+        //Anmation Controls
         anim.SetBool("isRunning", horzDirection != 0); //ie there is horizontal input therefor isrunning
         
+        if (rb.velocity.y > 0.1f)
+        {
+            anim.SetTrigger("jumping");
+        }
+        else if (rb.velocity.y < -0.1f)
+        {
+            anim.SetTrigger("falling");
+        }
 
     }//end update
 
